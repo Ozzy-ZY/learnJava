@@ -7,7 +7,7 @@ public class PlayfairCipher {
         keySquare = generateKeySquare(key);
     }
     /**
-     * returns a matrix of the chars and key together
+     * returns a matrix of the key and the rest of the alphabets
      */
     private static char[][] generateKeySquare(String key) {
         char[][] keySquare = new char[5][5];
