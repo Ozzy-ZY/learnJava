@@ -1,4 +1,7 @@
 package main;
+
+import java.security.SecureRandomParameters;
+
 public class Feistel {
     private static String block;
 
@@ -18,16 +21,14 @@ public class Feistel {
             newRightChars[i]= (char) (left.charAt(i)^ newRight.charAt(i));
         }
         newRight = new String(newRightChars);
-        StringBuilder newBlock = new StringBuilder();
-        newBlock.append(newLeft);
-        newBlock.append(newRight);
-        return newBlock.toString();
+        String newBlock = newLeft +
+                newRight;
+        return newBlock;
     }
     private static String FlipString(String finalBlock){
-        StringBuilder newBlock = new StringBuilder();
-        newBlock.append(finalBlock.substring(finalBlock.length()/2));
-        newBlock.append(finalBlock.substring(0,finalBlock.length()/2));
-        return newBlock.toString();
+        String newBlock = finalBlock.substring(finalBlock.length() / 2) +
+                finalBlock.substring(0, finalBlock.length() / 2);
+        return newBlock;
     }
 
     public static String encrypt(String text, int numOfRounds, String key) {
