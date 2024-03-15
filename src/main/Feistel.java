@@ -1,39 +1,22 @@
 package main;
-
-import java.security.SecureRandomParameters;
-
-public class Feistel {
-    private static String block;
-
-    public static void setBlock(String block) {
-        Feistel.block = block;
-    }
-
-    public static String getBlock() {
-        return block;
-    }
-
-    private static String VigThenXor(String left, String right, String key) {
-        String newLeft = right;
-        String newRight = Vigenere.encrypt(right);
-        char[] newRightChars = new char[left.length()];
-        for (int i = 0;i<left.length();i++){
-            newRightChars[i]= (char) (left.charAt(i)^ newRight.charAt(i));
+import java.util.Random;
+public class Feistel{
+    private static String keyInit(int length){
+        String chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
+        Random random = new Random();
+        StringBuilder str = new StringBuilder(length);
+        for(int i = 0;i<length;i++){
+            int randomIndex = random.nextInt(chars.length());
+            str.append(chars.charAt(randomIndex));
         }
-        newRight = new String(newRightChars);
-        String newBlock = newLeft +
-                newRight;
-        return newBlock;
+        return str.toString();
     }
-    private static String FlipString(String finalBlock){
-        String newBlock = finalBlock.substring(finalBlock.length() / 2) +
-                finalBlock.substring(0, finalBlock.length() / 2);
-        return newBlock;
+    private static String xorStrings(String a, String b){
+        StringBuilder str = new StringBuilder();
+        for(int i =0;i<a.length();i++){
+            str.append((char) (a.charAt(i)^(b.charAt(i))));
+        }
+        return str.toString();
     }
 
-    public static String encrypt(String text, int numOfRounds, String key) {
-        String left = block.substring(0, block.length() / 2);
-        String right = block.substring(block.length() / 2);
-        return key;
-    }
 }
