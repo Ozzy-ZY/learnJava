@@ -1,19 +1,20 @@
 package main;
 import java.util.Random;
 public class Feistel{
+    private static String key;
     /**
+     * initialize the key
      * @param length the length of the generated key
-     * @return a random String "key"
      */
-    private static String keyInit(int length){
-        String chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
+    private static void keyInit(int length){
+        String chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz123456789~!@#$%^&*()_+=-?|:;[]{}`.,<>'";
         Random random = new Random();
         StringBuilder str = new StringBuilder(length);
         for(int i = 0;i<length;i++){
             int randomIndex = random.nextInt(chars.length());
             str.append(chars.charAt(randomIndex));
         }
-        return str.toString();
+        key = str.toString();
     }
 
     /**
@@ -38,7 +39,9 @@ public class Feistel{
      * @return the Xored half of the Feistel's block
      */
     public static String func(String block){
-        String key = keyInit(block.length());
+        if(key== null||key.length()!= block.length()) {
+            keyInit(block.length());
+        }
         return xorStrings(block,key); //the result of Xoring with the key
     }
 
